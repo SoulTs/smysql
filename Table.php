@@ -1,9 +1,17 @@
 <?php 
 
-    class Table {
+	class Table {
 		
 		public $db;
 		protected $table;
+		
+		/**
+		 * 
+		 * @param sting $table
+		 * 
+		 * Init Table.php class
+		 * 
+		 */
 		
 		public function __construct($table) {
 			$pdo = new PDO('mysql:host=localhost;dbname=alloders', 'soults', '19962728');
@@ -11,6 +19,16 @@
 			$this->db = $pdo;
 			$this->table = $table;
 		}
+		
+		/**
+		 * Get rows from database
+		 * 
+		 * @param string $where
+		 * @param int $limit
+		 * @param bool $row
+		 * @return $d:
+		 * 
+		 */
 		
 		public function select($where = null, $limit = null, $row = false) {
 			$query = 'SELECT * FROM `' . $this->table . '`';
@@ -29,6 +47,10 @@
 			}
 			return $d;
 		}
+		
+		/**
+		 * Close connection
+		 */
 		
 		public function __destruct() {
 			$this->db = null;
