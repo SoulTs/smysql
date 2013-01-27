@@ -43,7 +43,6 @@
 				}
 			} catch (PDOException $e) {
 				echo $e->getMessage();
-				echo var_dump($stmt->errorInfo());
 			}
 			return $d;
 		}
