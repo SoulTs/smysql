@@ -1,6 +1,6 @@
 <?php 
 
-	class Table {
+    class Table {
 		
 		public $db;
 		protected $table;
@@ -46,6 +46,35 @@
 				echo var_dump($stmt->errorInfo());
 			}
 			return $d;
+		}
+		
+		/**
+		 * Delete or count of rows from Database
+		 * 
+		 * @param string $where
+		 * @return boolean
+		 * 
+		 */
+		
+		public function delete($where) {
+			if(!is_array($where)) {
+				$query = "DELETE FROM `" . $this->table . '` WHERE ' . $where;
+				try {
+					$this->db->prepare($query)->execute();
+				} catch (PDOException $e) {
+					echo $e->getMessage();
+				}
+			} else {
+				foreach($where as $c) {
+					$query = "DELETE FROM `" . $this->table . '` WHERE ' . $c . ';' . PHP_EOL;
+					try {
+						$this->db->prepare($query)->execute();
+					} catch (PDOException $e) {
+						echo $e->getMessage();
+					}
+				}
+			}
+			return true;
 		}
 		
 		/**
